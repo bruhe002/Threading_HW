@@ -14,14 +14,18 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        SortingThread s0 = new SortingThread(array, 0, 5);
-        SortingThread s1 = new SortingThread(array, 5, 10);
+        SortingThread s0 = new SortingThread(array, 0, 5, 1);
+        SortingThread s1 = new SortingThread(array, 5, 10, 2);
 
-        new Thread(s0).start();
-        new Thread(s1).start();
+        Thread thread0 = new Thread(s0);
+        Thread thread1 = new Thread(s1);
+
+        thread0.start();
+        thread1.start();
 
         try{
-            Thread.sleep(1000);
+            thread0.join();
+            thread1.join();
         } catch (InterruptedException e){}
 
 
@@ -30,10 +34,12 @@ public class Main {
 
         Runnable m1 = new MergingThread(s0.getArray(), s1.getArray(), new_array);
 
-        new Thread(m1).start();
+        Thread thread2 = new Thread(m1);
+        thread2.start();
         try{
-            Thread.sleep(1000);
+            thread2.join();
         } catch (InterruptedException e){}
+
         printArr(new_array);
     }
 
