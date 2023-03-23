@@ -19,11 +19,11 @@ public class Main {
 
             }
             Collections.sort(waitingList);
-            System.out.println(waitingList);
-            Iterator iter = waitingList.iterator();
-            for(int i = 0; i < waitingList.size(); i++) {
-                System.out.println("PID: " + waitingList.get(i).getPid() + "\tARRIVAL TIME: " + waitingList.get(i).getArrivalTime());
-            }
+//            System.out.println(waitingList);
+//            Iterator iter = waitingList.iterator();
+//            for(int i = 0; i < waitingList.size(); i++) {
+//                System.out.println("PID: " + waitingList.get(i).getPid() + "\tARRIVAL TIME: " + waitingList.get(i).getArrivalTime());
+//            }
             myReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("ERROR: File not found. Please try again!");
@@ -34,5 +34,8 @@ public class Main {
 
 
         // Pass the queue into the scheduling algorithm being chosen by the user
+//        PPS.runPPS(waitingList);
+//        FCFS.runFCFS(waitingList);
+        SJF.runSJF(waitingList);
     }
 }

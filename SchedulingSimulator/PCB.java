@@ -16,7 +16,7 @@ public class PCB implements Comparable<PCB>{
         this.arrival_time = -1;
         this.burst_time = -1;
         this.priority = -1;
-        this.used_time = -1;
+        this.used_time = 0;
     }
 
     public PCB(int pd, int at, int bt, int pty) {
@@ -32,7 +32,6 @@ public class PCB implements Comparable<PCB>{
     }
 
     public void setWaitTime(int n) { this.wait_time = n; }
-    public void setResponseTime(int n) { this.response_time = n; }
     public void setTurnaroundTime(int n) { this.turnaround_time = n; }
 
     public int getPid() { return this.pid; }
@@ -41,9 +40,8 @@ public class PCB implements Comparable<PCB>{
     public int getPriority() { return this.priority; }
     public int getUsedTime() { return this.used_time; }
 
-    public int getWaitTime(int n) { return this.wait_time; }
-    public int getResponseTime(int n) { return this.response_time; }
-    public int getTurnaroundTime(int n) { return this.turnaround_time; }
+    public int getWaitTime() { return this.wait_time; }
+    public int getTurnaroundTime() { return this.turnaround_time; }
 
     @Override
     public int compareTo(PCB p) {
