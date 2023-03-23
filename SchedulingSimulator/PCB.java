@@ -1,4 +1,6 @@
-public class PCB {
+import java.util.*;
+
+public class PCB implements Comparable<PCB>{
     private final int pid;
     private final int arrival_time;
     private final int burst_time;
@@ -40,7 +42,13 @@ public class PCB {
     public int getPriority() { return this.priority; }
     public int getUsedTime() { return this.used_time; }
 
-    public void getWaitTime(int n) { return this.wait_time; }
-    public void getResponseTime(int n) { return this.response_time; }
-    public void getTurnaroundTime(int n) { return this.turnaround_time; }
+    public int getWaitTime(int n) { return this.wait_time; }
+    public int getResponseTime(int n) { return this.response_time; }
+    public int getTurnaroundTime(int n) { return this.turnaround_time; }
+
+    @Override
+    public int compareTo(PCB p) {
+        return this.arrival_time - p.getArrivalTime();
+    }
+
 }
