@@ -32,7 +32,7 @@ public class FCFS {
             // Has the process completed it's execution
             if(currentPCB.getBurstTime() == currentPCB.getUsedTime()) {
                 // Run calculations
-                System.out.println("Process PID " + currentPCB.getPid() + " FINISHED running at time " + running_time);
+                System.out.println("\nProcess PID " + currentPCB.getPid() + " FINISHED running at time " + running_time);
                 currentPCB.setTurnaroundTime(running_time - currentPCB.getArrivalTime());
                 currentPCB.setWaitTime(currentPCB.getTurnaroundTime() - currentPCB.getBurstTime());
                 finishedQueue.add(currentPCB);
@@ -63,7 +63,8 @@ public class FCFS {
             ++running_time;
         } while(true);
 
-        System.out.println("The Execution has completed!");
+        System.out.println("\nThe Execution has completed!\n");
+        System.out.println("The results:");
         // Display results
         float awt = 0;
         float art = 0;

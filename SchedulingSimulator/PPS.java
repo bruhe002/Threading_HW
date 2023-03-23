@@ -14,7 +14,8 @@ public class PPS {
                     // Check Priority
                     // If incoming priority is less than the current Priority
                     if(waitingQueue.get(i).getPriority() < currentPCB.getPriority()) {
-                        //readyQueue.add(currentPCB);
+//                        readyQueue.add(0, currentPCB);
+//                        currentPCB = waitingQueue.get(i);
                         readyQueue.add(0, waitingQueue.get(i));
                     }
                     // If incoming priority is the same as the current Priority
@@ -29,7 +30,7 @@ public class PPS {
                             if(waitingQueue.get(i).getPriority() < readyQueue.get(j).getPriority()) {
                                 readyQueue.add(j, waitingQueue.get(i));
                                 notAdded = false; // Use flag to determine if the current process was added
-                                j++;
+                                j++; // Increment to avoid infinite loop
                             }
                         }
 
@@ -46,38 +47,51 @@ public class PPS {
 
             // Get first arrival
             // Check if the ready queue is full
-            if(waitingQueue.size() > 0 && readyQueue.size() == 0) {
-                currentPCB = idlePCB;
+            // Is this the very first process? or are we coming back from an idle?
+            if(currentPCB.getArrivalTime() == -1) {
+                // Is the ready queue not empty?
+                if(readyQueue.size() != 0) {
+                    currentPCB = readyQueue.get(0);
+                    readyQueue.remove(0);
+                }
             }
-            // if it is then
-            else {
-                // Has the process completed it's execution
-                if(currentPCB.getBurstTime() == currentPCB.getUsedTime()) {
-                    // Run calculations
-                    System.out.println("Process PID " + currentPCB.getPid() + " FINISHED running at time " + running_time);
-                    currentPCB.setTurnaroundTime(running_time - currentPCB.getArrivalTime());
-                    currentPCB.setWaitTime(currentPCB.getTurnaroundTime() - currentPCB.getBurstTime());
-                    finishedQueue.add(currentPCB);
 
-                    if(readyQueue.size() == 0 && waitingQueue.size() == 0) {
-                        break;
-                    } else {
-                        // Get the next process
+            // Has the process completed it's execution
+            if(currentPCB.getBurstTime() == currentPCB.getUsedTime()) {
+                // Run calculations
+                System.out.println("\nProcess PID " + currentPCB.getPid() + " FINISHED running at time " + running_time);
+                currentPCB.setTurnaroundTime(running_time - currentPCB.getArrivalTime());
+                currentPCB.setWaitTime(currentPCB.getTurnaroundTime() - currentPCB.getBurstTime());
+                finishedQueue.add(currentPCB);
+
+                // Check if we are done
+                if(readyQueue.size() == 0 && waitingQueue.size() == 0) {
+                    break;
+                } else {
+                    // Get the next process
+                    if(readyQueue.size() != 0) {
                         currentPCB = readyQueue.get(0);
                         readyQueue.remove(0);
+                    }
+                    // If there are processes waiting but the readyQueue is empty
+                    else {
+                        currentPCB = idlePCB; // GO idle
                     }
                 }
+            }
+            // If the process has NOT finished, check if the process in the ready queue has a higher priority
+            else {
+                // check if the ready queue is not empty
                 if(readyQueue.size() != 0) {
-                    // Is this the very first process? or are we coming back from an idle?
-                    if(currentPCB.getArrivalTime() == -1) {
-                        currentPCB = readyQueue.get(0);
-                        readyQueue.remove(0);
-                    }
-                    // Is priority lower than the next element?
-                    else if(currentPCB.getPriority() > readyQueue.get(0).getPriority()) {
-                        readyQueue.add(currentPCB);
-                        currentPCB = readyQueue.get(0);
-                        readyQueue.remove(0);
+                    // If it is, cause an interrupt of the current process
+                    if(readyQueue.get(0).getPriority() < currentPCB.getPriority()) {
+                        // NOT safe to assume the next process has a lower priority
+                        for(int i = 1; i < readyQueue.size(); i++) {
+                            if(readyQueue.get(i).getPriority() > currentPCB.getPriority()) {
+                                readyQueue.add(i, currentPCB);
+                                currentPCB = readyQueue.get(0);
+                            }
+                        }
                     }
                 }
 
@@ -95,7 +109,8 @@ public class PPS {
 
         } while(true);
 
-        System.out.println("The Execution has completed!");
+        System.out.println("\nThe Execution has completed!\n");
+        System.out.println("The results:");
         // Display results
         float awt = 0;
         float art = 0;
