@@ -35,7 +35,7 @@ public class Main {
 
         // Pass the queue into the scheduling algorithm being chosen by the user
 //        PPS.runPPS(waitingList);
-//        FCFS.runFCFS(waitingList);
-        SJF.runSJF(waitingList);
+        FCFS.runFCFS(waitingList);
+//        SJF.runSJF(waitingList);
     }
 }

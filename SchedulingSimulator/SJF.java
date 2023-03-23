@@ -32,14 +32,17 @@ public class SJF {
             }
 
             // Get first arrival
-            // Is the readyQueue not empty?
-            if(readyQueue.size() != 0) {
-                // Is this the very first process? or are we coming back from an idle?
-                if(currentPCB.getArrivalTime() == -1) {
+            // Is this the very first process? or are we coming back from an idle?
+            if(currentPCB.getArrivalTime() == -1) {
+                // Is the ready queue not empty?
+                if(readyQueue.size() != 0) {
                     currentPCB = readyQueue.get(0);
                     readyQueue.remove(0);
                 }
             }
+
+            // If the current process is NOT idle, the code should run and check whether it finished or not
+
             // Has the process completed it's execution
             if(currentPCB.getBurstTime() == currentPCB.getUsedTime()) {
                 // Run calculations
@@ -47,6 +50,8 @@ public class SJF {
                 currentPCB.setTurnaroundTime(running_time - currentPCB.getArrivalTime());
                 currentPCB.setWaitTime(currentPCB.getTurnaroundTime() - currentPCB.getBurstTime());
                 finishedQueue.add(currentPCB);
+
+                // Check if we are done
                 if(readyQueue.size() == 0 && waitingQueue.size() == 0) {
                     break;
                 } else {
@@ -57,9 +62,8 @@ public class SJF {
                     }
                     // If there are processes waiting but the readyQueue is empty
                     else {
-                        currentPCB = idlePCB;
+                        currentPCB = idlePCB; // GO idle
                     }
-                    
                 }
             }
 
@@ -81,6 +85,7 @@ public class SJF {
         float art = 0;
         float att = 0;
 
+        // Find averages
         for(int i = 0; i < finishedQueue.size(); i++) {
             awt += finishedQueue.get(i).getWaitTime();
             att += finishedQueue.get(i).getTurnaroundTime();

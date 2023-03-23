@@ -18,36 +18,39 @@ public class FCFS {
             }
 
             // Get first arrival
-            // Check if the ready queue is full
-            if(waitingQueue.size() > 0 && readyQueue.size() == 0) {
-                currentPCB = idlePCB;
-            }
-            // if it is then
-            else {
-                // Has the process completed it's execution
-                if(currentPCB.getBurstTime() == currentPCB.getUsedTime()) {
-                    // Run calculations
-                    System.out.println("Process PID " + currentPCB.getPid() + " FINISHED running at time " + running_time);
-                    currentPCB.setTurnaroundTime(running_time - currentPCB.getArrivalTime());
-                    currentPCB.setWaitTime(currentPCB.getTurnaroundTime() - currentPCB.getBurstTime());
-                    finishedQueue.add(currentPCB);
-
-                    if(readyQueue.size() == 0 && waitingQueue.size() == 0) {
-                        break;
-                    } else {
-                        // Get the next process
-                        currentPCB = readyQueue.get(0);
-                        readyQueue.remove(0);
-                    }
-                }
+            // Is this the very first process? or are we coming back from an idle?
+            if(currentPCB.getArrivalTime() == -1) {
+                // Is the ready queue not empty?
                 if(readyQueue.size() != 0) {
-                    // Is this the very first process? or are we coming back from an idle?
-                    if(currentPCB.getArrivalTime() == -1) {
+                    currentPCB = readyQueue.get(0);
+                    readyQueue.remove(0);
+                }
+            }
+
+            // If the current process is NOT idle, the code should run and check whether it finished or not
+
+            // Has the process completed it's execution
+            if(currentPCB.getBurstTime() == currentPCB.getUsedTime()) {
+                // Run calculations
+                System.out.println("Process PID " + currentPCB.getPid() + " FINISHED running at time " + running_time);
+                currentPCB.setTurnaroundTime(running_time - currentPCB.getArrivalTime());
+                currentPCB.setWaitTime(currentPCB.getTurnaroundTime() - currentPCB.getBurstTime());
+                finishedQueue.add(currentPCB);
+
+                // Check if we are done
+                if(readyQueue.size() == 0 && waitingQueue.size() == 0) {
+                    break;
+                } else {
+                    // Get the next process
+                    if(readyQueue.size() != 0) {
                         currentPCB = readyQueue.get(0);
                         readyQueue.remove(0);
                     }
+                    // If there are processes waiting but the readyQueue is empty
+                    else {
+                        currentPCB = idlePCB; // GO idle
+                    }
                 }
-
             }
 
             // Run the process if not idle
