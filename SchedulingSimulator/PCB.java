@@ -8,16 +8,15 @@ public class PCB implements Comparable<PCB>{
 
     private int used_time;
 
-    private int wait_time;
-    private int response_time;
-    private int turnaround_time;
+    private int wait_time = 0;
+    private int turnaround_time = 0;
 
     public PCB() {
-        this.pid = 0;
-        this.arrival_time = 0;
-        this.burst_time = 0;
-        this.priority = 0;
-        this.used_time = 0;
+        this.pid = -1;
+        this.arrival_time = -1;
+        this.burst_time = -1;
+        this.priority = -1;
+        this.used_time = -1;
     }
 
     public PCB(int pd, int at, int bt, int pty) {
