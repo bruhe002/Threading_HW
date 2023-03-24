@@ -3,8 +3,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class Main {
+    // Global Error flag for looping on bad inputs
     static boolean errorFlag = false;
 
+    /*
+        runAlgorithm() takes the input from a user in the algorithm selection menu
+        and calls the appropriate function linked to the choice
+        If chosen RR, extra code to obtain Time Quantum is necessary
+    * */
     private static void runAlgorithm(int n, List<PCB> wl) {
         switch (n) {
             case 1:
@@ -21,14 +27,15 @@ public class Main {
                 Scanner rrScan = new Scanner(System.in);
                 System.out.println("Please input Time Quantum!");
                 String q_str = rrScan.nextLine();
+
                 try {
+                    // Round Robin algorithm called here (Convert q to an integer)
                     int q = Integer.parseInt(q_str);
                     RR.runRR(wl, q);
                 } catch (NumberFormatException e) {
                     errorFlag = true;
                     System.out.println("Not a Number! Exiting Code...");
                 }
-                // Round Robin algorithm called here (Convert q to an integer)
         }
     }
 
@@ -36,13 +43,16 @@ public class Main {
         List<PCB> waitingList = new ArrayList<>();
 
         // User Interface
-        System.out.println("Welcome to THE SCHEDULER\n");
+        System.out.println("\nWelcome to THE SCHEDULER\n");
+
+        // Ask user for file to read
         Scanner userInput = new Scanner(System.in);
         System.out.println("Please enter a File name: ");
         String fileName = userInput.nextLine();
 
         // Read file
         do {
+            // Reset errorFlag
             errorFlag = false;
             try {
                 File myFile = new File(fileName);
@@ -64,35 +74,42 @@ public class Main {
                     System.out.println("Process" + waitingList.get(i).getPid());
                 }
 
+                // Close the scanner
                 myReader.close();
             } catch (FileNotFoundException e) {
                 errorFlag = true;
                 System.out.println("ERROR: File not found. Please try again!");
             }
-        } while(errorFlag);
+        } while(errorFlag); // Loop back if an error was thrown
 
         do {
+            // Reset errorFlag
             errorFlag = false;
+
+            // Display Scheduling Menu
             System.out.println("Please select a Scheduling algorithm: ");
             System.out.println("\t1. First Come First Serve");
             System.out.println("\t2. Shortest Job First");
             System.out.println("\t3. Preemptive Priority Scheduling");
             System.out.println("\t4. Round Robin");
 
+            // Obtain choice from user
             String choice = userInput.nextLine();
             try {
-                if(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") ) {
-                    System.out.println("My choice is " + choice);
+                // Check if choice is appropriate
+                if(!choice.equals("1") && !choice.equals("2") && !choice.equals("3") && !choice.equals("4") ) {
+                    // If not throw an exception
                     throw new Exception("Not a valid choice! Please try again");
                 }
                 else {
+                    // Call runAlgorithm to run the choice scheduler
                     runAlgorithm(Integer.parseInt(choice), waitingList);
                 }
             } catch (Exception e) {
                 errorFlag = true;
                 System.out.println(e.getMessage());
             }
-        } while(errorFlag);
+        } while(errorFlag); // Loop back if error was thrown
 
         // Pass the queue into the scheduling algorithm being chosen by the user
 //        PPS.runPPS(waitingList);
