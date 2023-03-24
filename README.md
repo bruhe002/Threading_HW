@@ -1,10 +1,10 @@
 # Threading_HW
 In this folder, you will find two more folders.
 Each one contains the code and classes for the different parts of the hw
-  - **MultiThreadSort** contains the code for Part One of the homework
+  - **MultiThreadSorting** contains the code for Part One of the homework
   - **SchedulingSimulator** contains the code for Part Two of the homework
   
-## MultiThreadSort
+## MultiThreadSorting
 This folder contains three Java Files necessary to run the program
   - Main.java
   - SortingThread.java
@@ -26,4 +26,4 @@ This folder contains three Java Files necessary to run the program
  Once running, the terminal will output messages regarding the threads that are currently running, and once they complete, will print out the resulting sorted array.
  
  
- ##SchedulingSimulator
+ ## SchedulingSimulator
