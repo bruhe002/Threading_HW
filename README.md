@@ -9,11 +9,15 @@ This folder contains three Java Files necessary to run the program
   - Main.java
   - SortingThread.java
   - MerginThread.java
+
+
  **MergingThread** and **SortingThread** are classes called by the *main* Function
  *main* will run two **SortingThread** objects simultaneously which will sort half of the global array provided in the code.
  Once those threads are done sorting, a third thread of a **MergingThread** object is ran to combine the the two sorted array into one global sorted array.
  
  **To run this program:**
+ 
+ 
  Simply hit the run option on your IDE, given that your configurations are correct.
  *OR*
  Run the program on the command line by typing the following command:
