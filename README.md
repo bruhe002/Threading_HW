@@ -20,13 +20,12 @@ This folder contains three Java Files necessary to run the program
  Once those threads are done sorting, a third thread of a **MergingThread** object is ran to combine the the two sorted array into one global sorted array.
  
  
- **To run this program:**
+**To run this program:**
  
- 
- Simply hit the run option on your IDE, given that your configurations are correct.
- *OR*
- Run the program on the command line by typing the following command:
- `java Main`
+Simply hit the run option on your IDE, given that your configurations are correct.
+*OR*
+Run the program on the command line by typing the following command:
+`java Main`
  
  *NOTE*
  If you change the global array to run different tests, make sure you recompile before you run, using the command:
