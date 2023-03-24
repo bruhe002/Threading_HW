@@ -21,13 +21,22 @@ This folder contains three Java Files necessary to run the program
  Simply hit the run option on your IDE, given that your configurations are correct.
  *OR*
  Run the program on the command line by typing the following command:
- `java main.java`
+ `java Main`
  
  *NOTE*
  If you change the global array to run different tests, make sure you recompile before you run, using the command:
- `javac main.java`
+ `javac Main.java`
  
  Once running, the terminal will output messages regarding the threads that are currently running, and once they complete, will print out the resulting sorted array.
  
  
  ## SchedulingSimulator
+ This folder contains six Java Files necessary to run the program
+  - Main.java
+  - PCB.java
+  - FCFS.java (First Come First Serve)
+  - SJF.java (Shortest Job First)
+  - PPS.java (Preemptive Priority Scheduling)
+  - RR.java (Round Robin)
+
+
