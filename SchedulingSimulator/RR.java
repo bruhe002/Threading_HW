@@ -17,6 +17,7 @@ public class RR {
 
                     // Once added remove from the current queue
                     waitingQueue.remove(i);
+                    i--;
                 }
             }
 
@@ -55,7 +56,7 @@ public class RR {
                     }
 
                     // Let user know a time quantum shift occured
-                    System.out.println("\nTime Quantum RESET!\n");
+                    System.out.println("------------------------------------------");
                     // Reset the time quantum
                     time_quantum_counter = timeQuantum;
                 }
@@ -72,7 +73,7 @@ public class RR {
                     }
 
                     // Let user know a time quantum shift occured
-                    System.out.println("\nTime Quantum RESET!\n");
+                    System.out.println("------------------------------------------");
                     // Reset time_quantum_counter
                     time_quantum_counter = timeQuantum;
                 }

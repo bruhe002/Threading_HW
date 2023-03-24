@@ -30,7 +30,7 @@ public class PPS {
                             if(waitingQueue.get(i).getPriority() < readyQueue.get(j).getPriority()) {
                                 readyQueue.add(j, waitingQueue.get(i));
                                 notAdded = false; // Use flag to determine if the current process was added
-                                j++; // Increment to avoid infinite loop
+                                j = readyQueue.size(); // Break out of the loop
                             }
                         }
 
@@ -42,6 +42,7 @@ public class PPS {
 
                     // Once added remove from the current queue
                     waitingQueue.remove(i);
+                    i--;
                 }
             }
 
@@ -59,7 +60,8 @@ public class PPS {
             // Has the process completed it's execution
             if(currentPCB.getBurstTime() == currentPCB.getUsedTime()) {
                 // Run calculations
-                System.out.println("\nProcess PID " + currentPCB.getPid() + " FINISHED running at time " + running_time);
+                System.out.println("\nProcess PID " + currentPCB.getPid() + " FINISHED running at time " +
+                        running_time + "\n");
                 currentPCB.setTurnaroundTime(running_time - currentPCB.getArrivalTime());
                 currentPCB.setWaitTime(currentPCB.getTurnaroundTime() - currentPCB.getBurstTime());
                 finishedQueue.add(currentPCB);
@@ -86,10 +88,13 @@ public class PPS {
                     // If it is, cause an interrupt of the current process
                     if(readyQueue.get(0).getPriority() < currentPCB.getPriority()) {
                         // NOT safe to assume the next process has a lower priority
+                        System.out.println("--------------------------------------------");
                         for(int i = 1; i < readyQueue.size(); i++) {
                             if(readyQueue.get(i).getPriority() > currentPCB.getPriority()) {
                                 readyQueue.add(i, currentPCB);
                                 currentPCB = readyQueue.get(0);
+                                readyQueue.remove(0);
+                                i = readyQueue.size();
                             }
                         }
                     }

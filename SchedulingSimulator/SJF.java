@@ -18,7 +18,7 @@ public class SJF {
                         if(waitingQueue.get(i).getBurstTime() < readyQueue.get(j).getBurstTime()) {
                             readyQueue.add(j, waitingQueue.get(i));
                             notAdded = false; // Use flag to determine if the current process was added
-                            j++;
+                            j = readyQueue.size(); // Finish the loop
                         }
                     }
                     // IF not added, then make sure to add at the end
@@ -28,6 +28,7 @@ public class SJF {
 
                     // Once added remove from the current queue
                     waitingQueue.remove(i);
+                    --i;
                 }
             }
 
@@ -46,7 +47,8 @@ public class SJF {
             // Has the process completed it's execution
             if(currentPCB.getBurstTime() == currentPCB.getUsedTime()) {
                 // Run calculations
-                System.out.println("\nProcess PID " + currentPCB.getPid() + " FINISHED running at time " + running_time);
+                System.out.println("\nProcess PID " + currentPCB.getPid() + " FINISHED running at time "
+                        + running_time + "\n");
                 currentPCB.setTurnaroundTime(running_time - currentPCB.getArrivalTime());
                 currentPCB.setWaitTime(currentPCB.getTurnaroundTime() - currentPCB.getBurstTime());
                 finishedQueue.add(currentPCB);

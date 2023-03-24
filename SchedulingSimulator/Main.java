@@ -9,10 +9,13 @@ public class Main {
         switch (n) {
             case 1:
                 FCFS.runFCFS(wl);
+                break;
             case 2:
                 SJF.runSJF(wl);
+                break;
             case 3:
                 PPS.runPPS(wl);
+                break;
             case 4:
                 // Ask for time quantum
                 Scanner rrScan = new Scanner(System.in);
@@ -57,6 +60,10 @@ public class Main {
                 }
                 // Sort the list based on arrival time
                 Collections.sort(waitingList);
+                for(int i = 0; i < waitingList.size(); i++) {
+                    System.out.println("Process" + waitingList.get(i).getPid());
+                }
+
                 myReader.close();
             } catch (FileNotFoundException e) {
                 errorFlag = true;
@@ -74,11 +81,11 @@ public class Main {
 
             String choice = userInput.nextLine();
             try {
-                if(choice != "1" && choice != "2" && choice != "3" && choice != "4" ) {
+                if(choice.equals("1") && choice.equals("2") && choice.equals("3") && choice.equals("4") ) {
+                    System.out.println("My choice is " + choice);
                     throw new Exception("Not a valid choice! Please try again");
                 }
                 else {
-                    errorFlag = true;
                     runAlgorithm(Integer.parseInt(choice), waitingList);
                 }
             } catch (Exception e) {

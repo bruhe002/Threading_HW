@@ -11,12 +11,16 @@ public class FCFS {
             // Check for arrivals
             for(int i = 0; i < waitingQueue.size(); i++) {
                 if(waitingQueue.get(i).getArrivalTime() == running_time) {
+//                    System.out.println(waitingQueue.get(i).getPid() + " is currently being added\t" + waitingQueue.size());
                     readyQueue.add(waitingQueue.get(i));
                     // Once added, remove from the waiting queue
                     waitingQueue.remove(i);
+                    i--;
                 }
             }
-
+            for(int i = 0; i < waitingQueue.size(); i++) {
+                System.out.println("Process" + waitingQueue.get(i).getPid());
+            }
             // Get first arrival
             // Is this the very first process? or are we coming back from an idle?
             if(currentPCB.getArrivalTime() == -1) {
@@ -32,7 +36,9 @@ public class FCFS {
             // Has the process completed it's execution
             if(currentPCB.getBurstTime() == currentPCB.getUsedTime()) {
                 // Run calculations
-                System.out.println("\nProcess PID " + currentPCB.getPid() + " FINISHED running at time " + running_time);
+                System.out.println("\nProcess PID " + currentPCB.getPid() + " FINISHED running at time "
+                        + running_time + "\n");
+
                 currentPCB.setTurnaroundTime(running_time - currentPCB.getArrivalTime());
                 currentPCB.setWaitTime(currentPCB.getTurnaroundTime() - currentPCB.getBurstTime());
                 finishedQueue.add(currentPCB);
@@ -59,6 +65,7 @@ public class FCFS {
                 System.out.println("Process PID " + currentPCB.getPid() + " is CURRENTLY running at time " + running_time);
             }
 
+//            System.out.println(running_time);
             // Increment running time
             ++running_time;
         } while(true);
