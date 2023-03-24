@@ -22,7 +22,7 @@ This folder contains three Java Files necessary to run the program
  
  
  
-**To run this program:**
+### To run this program:
  
 Simply hit the run option on your IDE, given that your configurations are correct.
 *OR*
@@ -53,6 +53,7 @@ The Four Algorithms (FCFS, SJF, PPS, RR) are java classes with one function: run
 
 This program simulates the scheduling of processes within an Operating System, given a specific algorithm which decides the order that process will be ran.
 
+### Algorithms
 
 *First Come First Serve (FCFS)* is an algorithm which will run the processes by the order of which it arrives
 
