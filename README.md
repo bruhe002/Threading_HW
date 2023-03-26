@@ -19,24 +19,39 @@ This folder contains three Java Files necessary to run the program
  
  Once those threads are done sorting, a third thread of a **MergingThread** object is ran to combine the the two sorted array into one global sorted array.
  
- 
- 
+
  
 ### To run this program:
  
 Simply hit the run option on your IDE, given that your configurations are correct.
 *OR*
-Run the program on the command line by typing the following command:
+Compile the program through the terminal running this command:
+
+
+`javac Main.java`
+
+
+Then run the program by entering the following command:
+
+
 `java Main`
  
  
+ Once running, the terminal will welcome and ask the user for an array. Exception handlers are put in place to make sure the array is only of numerical symbols, separated by a single white space. 
  
- *NOTE*
  
- If you change the global array to run different tests, make sure you recompile before you run, using the command:
- `javac Main.java`
+ NOTE: If the array is given AFTER a white space, this will cause an exception and will ask you to input the array of numbers again.
  
- Once running, the terminal will output messages regarding the threads that are currently running, and once they complete, will print out the resulting sorted array.
+ 
+ Once an acceptable array is given, the terminal will begin to output messages regarding the threads that are currently running; a message will be displayed for every sorting loop. This lets the user know the program is running. A `Thread.sleep(1000)` code is used to give the user the ability to see the progress easily.
+ 
+ Once the sorting completes, the terminal will print out the resulting sorted array.
+ 
+ 
+ The program will terminate once it's done.
+ 
+ 
+ In order to run further testing, rerun the program using the same `java` command.
  
  
  ## SchedulingSimulator
