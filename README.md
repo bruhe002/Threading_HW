@@ -81,8 +81,11 @@ The rest of the variables are used when conducting calculations.
   - *wait_time*: the amount of time the process does not run during an algorithm.
   - *turnaround_time*: the amount of time since the process arrived in the queue, from the total time it completed its burst.
 
-**THESE VARIABLES MUST BE REST EVERYTIME BEFORE THEY ARE RAN THROUGH ANOTHER ALGORITHM**
+**THESE VARIABLES MUST BE RESET EVERYTIME BEFORE THEY ARE RAN THROUGH ANOTHER ALGORITHM**
  
+There are two PCB Constructors, a *default constructor* and an *overloaded constructor*.
+
+The *default constructor* initializes all variables to negative one. Only idle processes are created with the *default constructor*. Idle process are needed whenever there is a process still in the waiting queue but none are in the ready queue. The CPU will still run and check the waiting queue until whenever the running time counter changes. 
 
 ### To run this program:
 
@@ -101,3 +104,11 @@ Exception Handlers are put in place to make sure the file and its data are valid
 Each row is created into a PCB object and is placed into an array which will be passed to one of the four algorithms. The array is sorted by arrival time once filled.
 
 Once a file is accepted. the program will then display a menu asking the user to enter a number (An exception is used to make sure the input is correct). Input 1 will pass the array into the FCFS alogrithm; Input 2 will pass the array into the SJF algorithm; Input 3 will pass the array into the PPS algorithm; and Input 4 will pass the array into the RR algorithm.
+
+As the algorithm is ran, the user will see a display of which process is running at a certain time. The algorithm will pause for 1 second to display the information. This 1 second represents the one millisecond of a process's burst time, and gives the user time to see the information. Once a process is finished running, a message will display that the process has ended and at what time. 
+
+Once all the processes have finished running, the program will display the Average Wait Time (AWT), Average Turnaround Time (ATT), and Average Response Time (ART = ATT - AWT).
+
+After the algorithm finishes running, the PCB variables are reset (except for those provide by *input.txt*) and the user is prompted to choose another algorithm to run. 
+
+If the user chooses Input 5, the program will terminate.
