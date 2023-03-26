@@ -82,6 +82,8 @@ public class SJF {
             if(currentPCB.getPid() != -1) {
                 currentPCB.incUsedTime();
                 System.out.println("Process PID " + currentPCB.getPid() + " is CURRENTLY running at time " + running_time);
+            } else {
+                System.out.println("CPU is IDLE at time " + running_time + '\n');
             }
 
             // Increment running time
@@ -98,19 +100,25 @@ public class SJF {
         float awt = 0;
         float art = 0;
         float att = 0;
+        float cpuUtilRate = 0;
 
         // Find averages
         for(int i = 0; i < finishedQueue.size(); i++) {
             awt += finishedQueue.get(i).getWaitTime();
             att += finishedQueue.get(i).getTurnaroundTime();
+            cpuUtilRate += finishedQueue.get(i).getBurstTime();
         }
 
         awt /= finishedQueue.size();
         att /= finishedQueue.size();
 
+        cpuUtilRate = (cpuUtilRate / running_time) * 100;
+
         System.out.format("Average Wait Time = %.2f milliseconds\n", awt);
         System.out.format("Average Response Time = %.2f milliseconds\n", (att - awt));
         System.out.format("Average Turnaround Time = %.2f milliseconds\n", att);
+        System.out.format("CPU Utilization Rate = %.2f percent \n", cpuUtilRate);
+
 
         try {
             Thread.sleep(5000);
