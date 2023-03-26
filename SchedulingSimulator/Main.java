@@ -6,10 +6,18 @@ public class Main {
     // Global Error flag for looping on bad inputs
     static boolean errorFlag = false;
 
+    private static void copyPCBList(List<PCB> waitingList, List<PCB> tempList) {
+        for(int i = 0; i < waitingList.size(); i++) {
+            waitingList.get(i).resetPCB();
+            tempList.add(i, waitingList.get(i));
+        }
+    }
+
     /*
         runAlgorithm() takes the input from a user in the algorithm selection menu
         and calls the appropriate function linked to the choice
         If chosen RR, extra code to obtain Time Quantum is necessary
+        If the choice is 5, the global errorFlag will break the current loop and end the program.
     * */
     private static void runAlgorithm(int n, List<PCB> wl) {
         switch (n) {
@@ -87,30 +95,37 @@ public class Main {
         do {
             // Allow loop to run unless a user enters 5
             errorFlag = true;
+
+            // Set waiting list to a temp list to save data for other iterations
+            List<PCB> tempList = new ArrayList<>();
+            copyPCBList(waitingList, tempList);
+
             // Display Scheduling Menu
             System.out.println("Please select a Scheduling algorithm: ");
             System.out.println("\t1. First Come First Serve");
             System.out.println("\t2. Shortest Job First");
             System.out.println("\t3. Preemptive Priority Scheduling");
             System.out.println("\t4. Round Robin");
-            System.out.println("\t5. Quit")
+            System.out.println("\t5. Quit");
 
             // Obtain choice from user
             String choice = userInput.nextLine();
             try {
                 // Check if choice is appropriate
-                if(!choice.equals("1") && !choice.equals("2") && !choice.equals("3") && !choice.equals("4") ) {
+                if(!choice.equals("1") && !choice.equals("2") && !choice.equals("3")
+                        && !choice.equals("4") && !choice.equals("5")) {
                     // If not throw an exception
                     throw new Exception("Not a valid choice! Please try again");
                 }
                 else {
                     // Call runAlgorithm to run the choice scheduler
-                    runAlgorithm(Integer.parseInt(choice), waitingList);
+                    runAlgorithm(Integer.parseInt(choice), tempList);
                 }
             } catch (Exception e) {
                 errorFlag = true;
                 System.out.println(e.getMessage());
             }
+
         } while(errorFlag); // Loop back if error was thrown
 
         // Pass the queue into the scheduling algorithm being chosen by the user

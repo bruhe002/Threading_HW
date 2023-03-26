@@ -58,7 +58,7 @@ public class RR {
                         currentPCB = idlePCB; // GO idle
                     }
 
-                    // Let user know a time quantum shift occured
+                    // Let user know a time quantum reset occured
                     System.out.println("------------------------------------------");
                     // Reset the time quantum
                     time_quantum_counter = timeQuantum;
@@ -118,5 +118,9 @@ public class RR {
         System.out.format("Average Wait Time = %.2f milliseconds\n", awt);
         System.out.format("Average Response Time = %.2f milliseconds\n", (att - awt));
         System.out.format("Average Turnaround Time = %.2f milliseconds\n", att);
+
+        try {
+            Thread.sleep(5000);
+        } catch (Exception e) {}
     }
 }

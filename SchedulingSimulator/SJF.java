@@ -52,8 +52,14 @@ public class SJF {
                 try{
                     Thread.sleep(1000); // Let the process work so user can see what is happening
                 } catch (InterruptedException e){}
+
+                // Set turnaround time
                 currentPCB.setTurnaroundTime(running_time - currentPCB.getArrivalTime());
+
+                // Set wait time
                 currentPCB.setWaitTime(currentPCB.getTurnaroundTime() - currentPCB.getBurstTime());
+
+                // Add to a finished queue
                 finishedQueue.add(currentPCB);
 
                 // Check if we are done
@@ -105,5 +111,9 @@ public class SJF {
         System.out.format("Average Wait Time = %.2f milliseconds\n", awt);
         System.out.format("Average Response Time = %.2f milliseconds\n", (att - awt));
         System.out.format("Average Turnaround Time = %.2f milliseconds\n", att);
+
+        try {
+            Thread.sleep(5000);
+        } catch (Exception e) {}
     }
 }

@@ -72,9 +72,9 @@ public class Main {
             thread1.join();
         } catch (InterruptedException e){}
 
-        // Print Arrays to check if sorting occrued
-        printArr(s0.getArray());
-        printArr(s1.getArray());
+//        // Print Arrays to check if sorting occrued
+//        printArr(s0.getArray());
+//        printArr(s1.getArray());
 
         // Create a MergingThread Object
         Runnable m1 = new MergingThread(s0.getArray(), s1.getArray(), new_array);
@@ -89,7 +89,9 @@ public class Main {
         } catch (InterruptedException e){}
 
         // Print Result
+        System.out.println("\nThe sorted array:");
         printArr(new_array);
+        System.out.println("\nExiting Program...\n");
     }
 
 }

@@ -18,9 +18,6 @@ public class FCFS {
                     i--;
                 }
             }
-            for(int i = 0; i < waitingQueue.size(); i++) {
-                System.out.println("Process" + waitingQueue.get(i).getPid());
-            }
             // Get first arrival
             // Is this the very first process? or are we coming back from an idle?
             if(currentPCB.getArrivalTime() == -1) {
@@ -41,8 +38,14 @@ public class FCFS {
                 try{
                     Thread.sleep(1000); // Let the process work so user can see what is happening
                 } catch (InterruptedException e){}
+
+                // Set turnaround time
                 currentPCB.setTurnaroundTime(running_time - currentPCB.getArrivalTime());
+
+                // Set wait time
                 currentPCB.setWaitTime(currentPCB.getTurnaroundTime() - currentPCB.getBurstTime());
+
+                // Add to a finished queue
                 finishedQueue.add(currentPCB);
 
                 // Check if we are done
@@ -94,5 +97,9 @@ public class FCFS {
         System.out.format("Average Wait Time = %.2f milliseconds\n", awt);
         System.out.format("Average Response Time = %.2f milliseconds\n", (att - awt));
         System.out.format("Average Turnaround Time = %.2f milliseconds\n", att);
+
+        try {
+            Thread.sleep(5000);
+        } catch (Exception e) {}
     }
 }

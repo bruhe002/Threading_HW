@@ -12,18 +12,18 @@ public class PPS {
             for(int i = 0; i < waitingQueue.size(); i++) {
                 if(waitingQueue.get(i).getArrivalTime() == running_time) {
                     // Check Priority
-                    // If incoming priority is less than the current Priority
-                    if(waitingQueue.get(i).getPriority() < currentPCB.getPriority()) {
-//                        readyQueue.add(0, currentPCB);
-//                        currentPCB = waitingQueue.get(i);
-                        readyQueue.add(0, waitingQueue.get(i));
-                    }
-                    // If incoming priority is the same as the current Priority
-                    else if(waitingQueue.get(i).getPriority() == currentPCB.getPriority()) {
-                        readyQueue.add(0, waitingQueue.get(i));
-                    }
-                    // If incoming priority is greater than current priority
-                    else {
+//                    // If incoming priority is less than the current Priority
+//                    if(waitingQueue.get(i).getPriority() < currentPCB.getPriority()) {
+////                        readyQueue.add(0, currentPCB);
+////                        currentPCB = waitingQueue.get(i);
+//                        readyQueue.add(0, waitingQueue.get(i));
+//                    }
+//                    // If incoming priority is the same as the current Priority
+//                    else if(waitingQueue.get(i).getPriority() == currentPCB.getPriority()) {
+//                        readyQueue.add(0, waitingQueue.get(i));
+//                    }
+//                    // If incoming priority is greater than current priority
+//                    else {
                         // Place Process in the correct spot on the ready queue based on priority
                         boolean notAdded = true;
                         for(int j = 0; j < readyQueue.size(); j++) {
@@ -38,7 +38,7 @@ public class PPS {
                         if(notAdded) {
                             readyQueue.add(waitingQueue.get(i));
                         }
-                    }
+                    //}
 
                     // Once added remove from the current queue
                     waitingQueue.remove(i);
@@ -92,17 +92,23 @@ public class PPS {
                     if(readyQueue.get(0).getPriority() < currentPCB.getPriority()) {
                         // NOT safe to assume the next process has a lower priority
                         System.out.println("--------------------------------------------");
-                        for(int i = 1; i < readyQueue.size(); i++) {
-                            if(readyQueue.get(i).getPriority() > currentPCB.getPriority()) {
-                                readyQueue.add(i, currentPCB);
-                                currentPCB = readyQueue.get(0);
-                                readyQueue.remove(0);
-                                i = readyQueue.size();
+                        // Need to check for only one element to maintain logic consistency
+                        if(readyQueue.size() == 1) {
+                            readyQueue.add(currentPCB);
+                        } else {
+                            for(int i = 1; i < readyQueue.size(); i++) {
+                                if (readyQueue.get(i).getPriority() > currentPCB.getPriority()) {
+                                    readyQueue.add(i, currentPCB);
+                                    i = readyQueue.size();
+                                }
                             }
                         }
+
+                        currentPCB = readyQueue.get(0);
+                        readyQueue.remove(0);
+
                     }
                 }
-
             }
 
             // Run the process if not idle
@@ -137,5 +143,9 @@ public class PPS {
         System.out.format("Average Wait Time = %.2f milliseconds\n", awt);
         System.out.format("Average Response Time = %.2f milliseconds\n", (att - awt));
         System.out.format("Average Turnaround Time = %.2f milliseconds\n", att);
+
+        try {
+            Thread.sleep(5000);
+        } catch (Exception e) {}
     }
 }
