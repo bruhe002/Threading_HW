@@ -36,6 +36,9 @@ public class RR {
                 // Run calculations
                 System.out.println("\nProcess PID " + currentPCB.getPid() +
                         " FINISHED running at time " + running_time);
+                try{
+                    Thread.sleep(1000); // Let the process work so user can see what is happening
+                } catch (InterruptedException e){}
                 currentPCB.setTurnaroundTime(running_time - currentPCB.getArrivalTime());
                 currentPCB.setWaitTime(currentPCB.getTurnaroundTime() - currentPCB.getBurstTime());
                 finishedQueue.add(currentPCB);
@@ -92,7 +95,9 @@ public class RR {
             // Decrement Quantum counter
             --time_quantum_counter;
 
-
+            try{
+                Thread.sleep(1000); // Let the process work so user can see what is happening
+            } catch (InterruptedException e){}
         } while(true);
 
         System.out.println("\nThe Execution has completed!\n");
@@ -110,8 +115,8 @@ public class RR {
         awt /= finishedQueue.size();
         att /= finishedQueue.size();
 
-        System.out.format("Average Wait Time = %.2f\n", awt);
-        System.out.format("Average Response Time = %.2f\n", (att - awt));
-        System.out.format("Average Turnaround Time = %.2f\n", att);
+        System.out.format("Average Wait Time = %.2f milliseconds\n", awt);
+        System.out.format("Average Response Time = %.2f milliseconds\n", (att - awt));
+        System.out.format("Average Turnaround Time = %.2f milliseconds\n", att);
     }
 }

@@ -36,6 +36,9 @@ public class Main {
                     errorFlag = true;
                     System.out.println("Not a Number! Exiting Code...");
                 }
+                break;
+            case 5:
+                errorFlag = false;
         }
     }
 
@@ -70,28 +73,27 @@ public class Main {
                 }
                 // Sort the list based on arrival time
                 Collections.sort(waitingList);
-                for(int i = 0; i < waitingList.size(); i++) {
-                    System.out.println("Process" + waitingList.get(i).getPid());
-                }
-
                 // Close the scanner
                 myReader.close();
             } catch (FileNotFoundException e) {
                 errorFlag = true;
                 System.out.println("ERROR: File not found. Please try again!");
+            } catch (Exception e) {
+                errorFlag = true;
+                System.out.println("ERROR: Incorrect File Format. Please review file and try again!");
             }
         } while(errorFlag); // Loop back if an error was thrown
 
         do {
-            // Reset errorFlag
-            errorFlag = false;
-
+            // Allow loop to run unless a user enters 5
+            errorFlag = true;
             // Display Scheduling Menu
             System.out.println("Please select a Scheduling algorithm: ");
             System.out.println("\t1. First Come First Serve");
             System.out.println("\t2. Shortest Job First");
             System.out.println("\t3. Preemptive Priority Scheduling");
             System.out.println("\t4. Round Robin");
+            System.out.println("\t5. Quit")
 
             // Obtain choice from user
             String choice = userInput.nextLine();

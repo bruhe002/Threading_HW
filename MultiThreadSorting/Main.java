@@ -1,9 +1,12 @@
 import java.io.*;
+import java.util.*;
 
 public class Main {
     // Global Arrays: Initial and Resulting
-    public static int[] array = {7, 12, 19, 3, 18, 4, 2, 6, 15, 8};
-    public static int[] new_array = new int[array.length];
+    public static int[] array;
+    public static int[] new_array;
+
+    static boolean errorFlag;
 
     // Function used to print arrays
     public static void printArr(int[] arr) {
@@ -15,9 +18,42 @@ public class Main {
     }
 
     public static void main(String[] args) {
+
+        // Greeting User
+        System.out.println("\nWelcome to Mutlithread Sorting!!");
+
+        // Set up variables for input
+        Scanner arrayScan = new Scanner(System.in); // Scanner for reading input
+        String input; // The input given by a user
+        ; // Grabs the numbers entered from input and separates them via space into this array
+
+        do {
+            errorFlag = false; // Reset error
+            System.out.println("Please enter your array (separate with spaces)");
+
+            // Obtain the array from input
+            input = arrayScan.nextLine();
+            String[] inputArray = input.split(" ", 0);
+
+            array = new int[inputArray.length];
+            new_array = new int[inputArray.length];
+
+            try {
+                for(int i = 0; i < inputArray.length; i++) {
+                    array[i] = Integer.parseInt(inputArray[i]);
+                }
+            } catch (Exception e) {
+                System.out.println("Element is not a valid number.\nPlease try again.");
+                errorFlag = true;
+            }
+        } while(errorFlag);
+
         // Set up two SortingThread Objects
-        SortingThread s0 = new SortingThread(array, 0, 5, 1);
-        SortingThread s1 = new SortingThread(array, 5, 10, 2);
+        // See SortingThread class for information on parameters
+        int mid = array.length / 2;
+
+        SortingThread s0 = new SortingThread(array, 0, mid, 1);
+        SortingThread s1 = new SortingThread(array, mid, array.length, 2);
 
         // SortingThread Class implements Runnable
         // Need to create Thread Objects

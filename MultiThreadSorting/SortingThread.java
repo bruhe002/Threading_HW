@@ -31,7 +31,7 @@ public class SortingThread implements Runnable {
 
         // Sort array using Insertion Sorting algorithm: O(n^2)
         for(int i = 1; i < length; i++) {
-            System.out.println("Sorting Array for thread: " + id); // Display that thread is currently working
+            System.out.println("Sorting Sub-Array for thread " + id); // Display that thread is currently working
             try{
                 Thread.sleep(1000); // Let the process work so user can see what is happening
             } catch (InterruptedException e){}
