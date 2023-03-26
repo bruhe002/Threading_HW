@@ -23,7 +23,9 @@ This folder contains three Java Files necessary to run the program
 ### To run this program:
  
 Simply hit the run option on your IDE, given that your configurations are correct.
+
 *OR*
+
 Compile the program through the terminal running this command:
 
 
