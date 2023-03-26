@@ -14,12 +14,11 @@ This folder contains three Java Files necessary to run the program
  **MergingThread** and **SortingThread** are classes called by the *main* Function
  
  
- *main* will run two **SortingThread** objects simultaneously which will sort half of the global array provided in the code.
+ *main* will run two **SortingThread** objects simultaneously which will sort half of the global array provided by the user.
  
  
  Once those threads are done sorting, a third thread of a **MergingThread** object is ran to combine the the two sorted array into one global sorted array.
  
-
  
 ### To run this program:
  
@@ -44,6 +43,7 @@ Then run the program by entering the following command:
  
  
  Once an acceptable array is given, the terminal will begin to output messages regarding the threads that are currently running; a message will be displayed for every sorting loop. This lets the user know the program is running. A `Thread.sleep(1000)` code is used to give the user the ability to see the progress easily.
+ 
  
  Once the sorting completes, the terminal will print out the resulting sorted array.
  
