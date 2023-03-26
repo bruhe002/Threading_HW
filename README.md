@@ -17,7 +17,9 @@ This folder contains three Java Files necessary to run the program
  Once those threads are done sorting, a third thread of a **MergingThread** object is ran to combine the the two sorted array into one global sorted array.
  
 ### To run this program:
- 
+
+Make sure you are first within the "MultiThreadSorting" file.
+
 Simply hit the run option on your IDE, given that your configurations are correct.
 
 *OR*
@@ -88,6 +90,8 @@ There are two PCB Constructors, a *default constructor* and an *overloaded const
 The *default constructor* initializes all variables to negative one. Only idle processes are created with the *default constructor*. Idle process are needed whenever there is a process still in the waiting queue but none are in the ready queue. The CPU will still run and check the waiting queue until whenever the running time counter changes. 
 
 ### To run this program:
+
+Make sure you are first within the "SchedulingSimulator" file.
 
 Compile the program through the terminal running this command:
 
