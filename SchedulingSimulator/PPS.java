@@ -12,33 +12,20 @@ public class PPS {
             for(int i = 0; i < waitingQueue.size(); i++) {
                 if(waitingQueue.get(i).getArrivalTime() == running_time) {
                     // Check Priority
-//                    // If incoming priority is less than the current Priority
-//                    if(waitingQueue.get(i).getPriority() < currentPCB.getPriority()) {
-////                        readyQueue.add(0, currentPCB);
-////                        currentPCB = waitingQueue.get(i);
-//                        readyQueue.add(0, waitingQueue.get(i));
-//                    }
-//                    // If incoming priority is the same as the current Priority
-//                    else if(waitingQueue.get(i).getPriority() == currentPCB.getPriority()) {
-//                        readyQueue.add(0, waitingQueue.get(i));
-//                    }
-//                    // If incoming priority is greater than current priority
-//                    else {
-                        // Place Process in the correct spot on the ready queue based on priority
-                        boolean notAdded = true;
-                        for(int j = 0; j < readyQueue.size(); j++) {
-                            if(waitingQueue.get(i).getPriority() < readyQueue.get(j).getPriority()) {
-                                readyQueue.add(j, waitingQueue.get(i));
-                                notAdded = false; // Use flag to determine if the current process was added
-                                j = readyQueue.size(); // Break out of the loop
-                            }
+                    // Place Process in the correct spot on the ready queue based on priority
+                    boolean notAdded = true;
+                    for(int j = 0; j < readyQueue.size(); j++) {
+                        if(waitingQueue.get(i).getPriority() < readyQueue.get(j).getPriority()) {
+                            readyQueue.add(j, waitingQueue.get(i));
+                            notAdded = false; // Use flag to determine if the current process was added
+                            j = readyQueue.size(); // Break out of the loop
                         }
+                    }
 
-                        // IF not added, then make sure to add at the end
-                        if(notAdded) {
-                            readyQueue.add(waitingQueue.get(i));
-                        }
-                    //}
+                    // IF not added, then make sure to add at the end
+                    if(notAdded) {
+                        readyQueue.add(waitingQueue.get(i));
+                    }
 
                     // Once added remove from the current queue
                     waitingQueue.remove(i);
